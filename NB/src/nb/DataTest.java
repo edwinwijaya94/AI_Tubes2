@@ -20,6 +20,10 @@ public class DataTest {
     
     private ArrayList<String[]> dataTest;
     
+    public DataTest(){
+        dataTest = new ArrayList<>();
+    }
+    
     public DataTest(String filename) throws IOException {
 
         // This will reference one line at a time
@@ -66,5 +70,15 @@ public class DataTest {
     
     public ArrayList<String[]> getDataTest(){
         return dataTest;
+    }
+    
+    public void printDataTest(){
+        System.out.println("Data Test: size= " + dataTest.size());
+        for(int i=0; i<dataTest.size(); i++){
+            for(int j=0; j<dataTest.get(i).length;j++)
+                System.out.print(dataTest.get(i)[j] + " ");
+            System.out.println("");
+        }
+        
     }
 }

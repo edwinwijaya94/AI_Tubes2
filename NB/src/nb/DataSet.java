@@ -23,6 +23,10 @@ public class DataSet {
     private ArrayList<String[]> dataSet;
     private Set<String> classValue;
     
+    public DataSet(){
+        dataSet = new ArrayList<>();
+    }
+    
     public DataSet(String filename) throws IOException {
 
         // This will reference one line at a time
@@ -83,5 +87,15 @@ public class DataSet {
         for(Iterator<String> it = classValue.iterator(); it.hasNext();){
             System.out.print(it.next() + " ");
         }
+    }
+    
+    public void printDataSet(){
+        System.out.println("Data Set: size= " + dataSet.size());
+        for(int i=0; i<dataSet.size(); i++){
+            for(int j=0; j<dataSet.get(i).length;j++)
+                System.out.print(dataSet.get(i)[j] + " ");
+            System.out.println("");
+        }
+        
     }
 }

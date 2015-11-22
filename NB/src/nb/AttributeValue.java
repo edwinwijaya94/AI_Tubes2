@@ -17,7 +17,8 @@ public class AttributeValue {
         
     //Value pada seluruh attribute
     public AttributeValue(DataSet dataSet, ArrayList<Set<String>> value){
-        for(int i=0;i<dataSet.getDataSet().get(i).length;i++){
+        //System.out.println("dataSet size=" + dataSet.getDataSet().size());
+        for(int i=0; i<dataSet.getDataSet().get(0).length;i++){
             for (int j=0; j<dataSet.getDataSet().size();j++){
                 value.get(i).add(dataSet.getDataSet().get(j)[i]);
             }

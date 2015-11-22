@@ -8,6 +8,7 @@ package nb;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -20,6 +21,8 @@ public class NB {
     private DataTest dataTest;         // the data test
     private static ArrayList<ArrayList<String>> frequentTable;
     private static ArrayList<ArrayList<String>> probabilityTable;
+    private static ArrayList<ArrayList<String>> frequentTable2;
+    private static ArrayList<ArrayList<String>> probabilityTable2;
     
     /**
      * @param args the command line arguments
@@ -38,7 +41,7 @@ public class NB {
           DataTest dataTest = new DataTest(args[1]);
           
           ArrayList<Set<String>> value = new ArrayList<>();
-          for(int i=0; i<36; i++){
+          for(int i=0; i<1000; i++){
               Set<String> temp = new HashSet<>();
               value.add(temp);
           }
@@ -48,25 +51,45 @@ public class NB {
           classValue = dataSet.getClassValue();
 //          dataSet.printClass(classValue);
           frequentTable = new ArrayList<>();
-//          for(int i=0; i<100; i++){
-//              ArrayList<String> temp = new ArrayList<>();
-//              frequentTable.add(temp);
-//          }
+
           probabilityTable = new ArrayList<>();
-//          for(int i=0; i<23; i++){
-//              ArrayList<String> temp = new ArrayList<>();
-//              probabilityTable.add(temp);
-//          }
           Algorithm algorithm = new Algorithm(dataSet, value, frequentTable, probabilityTable);
-//          algorithm.printFrequent(frequentTable);
-//          algorithm.printProbability(probabilityTable);
+          //algorithm.printProbability(probabilityTable);
           ArrayList<String> finalClass = new ArrayList<>();
-          finalClass = algorithm.getResult(dataSet, dataTest, probabilityTable);
+          finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
           
-//          for(int i=0;i<finalClass.size();i++){
-//              System.out.println(finalClass.get(i));
+          System.out.println("Full Training method");
+          System.out.printf("Accuration = %.2f" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
+          System.out.println("%");
+          System.out.println();
+          
+          //10 fold cross validation
+          ArrayList<Set<String>> value2 = new ArrayList<>();
+          for(int i=0; i<100; i++){
+              Set<String> temp = new HashSet<>();
+              value2.add(temp);
+          }
+          frequentTable2 = new ArrayList<>();
+          probabilityTable2 = new ArrayList<>();
+          //dataSet.printDataSet();
+          Algorithm algorithm2 = new Algorithm(dataSet, value2, frequentTable2, probabilityTable2);
+          //algorithm2.printProbability(probabilityTable);
+//          for(int i=0; i<value2.size(); i++){
+//              for(Iterator<String> it = value.get(i).iterator(); it.hasNext();){
+//                  System.out.print("Attr " + it.next());
+//              }
+//              System.out.println();
 //          }
-          System.out.println("Accuration = " + algorithm.getFullTrainingAccuration(dataTest, finalClass) + "%");
+          ArrayList<String> crossFinalClass = new ArrayList<>();
+          crossFinalClass=algorithm2.getCrossValidationResult(dataSet, 10);
+//          System.out.println("Cross final class");
+//          for(int i=0; i<crossFinalClass.size(); i++){
+//              System.out.println(crossFinalClass.get(i));
+//          }
+          //dataTest.printDataTest();
+          System.out.println("10 Fold Cross Validation method:");
+          System.out.printf("Accuration = %.2f" ,algorithm.getFullTrainingAccuration(dataTest, crossFinalClass));
+          System.out.println("%");
         }
     }
 }
