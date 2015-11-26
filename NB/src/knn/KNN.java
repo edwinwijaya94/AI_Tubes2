@@ -1,3 +1,5 @@
+package knn;
+
 import com.opencsv.CSVReader;
 import javafx.util.Pair;
 
@@ -18,7 +20,7 @@ public class KNN {
     public KNN(String fileName, int kVar) {
         try {
             this.kVar = kVar;
-
+            fileName = "src/" + fileName;
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
             data = new ArrayList<>();
 
@@ -39,7 +41,7 @@ public class KNN {
         }
     }
 
-    public float getFullTrainingAccuracy() {
+    public void getFullTrainingAccuracy() {
         int accurate = 0;
 
         for (int i = 0; i < datasetSize; i++) {
@@ -71,11 +73,11 @@ public class KNN {
                 accurate++;
             }
         }
-
-        return (float) accurate / (float) datasetSize;
+        System.out.println("Full Training Method:");
+        System.out.printf("Accuration = %.2f %%\n\n",(float) accurate / (float) datasetSize *100);
     }
 
-    public float getCrossValidationAccuracy() {
+    public void getCrossValidationAccuracy() {
         int accurate = 0;
         final int segment = 10;
 
@@ -113,6 +115,7 @@ public class KNN {
             }
         }
 
-        return (float) accurate / (float) datasetSize;
+        System.out.println("10-Cross Validation Method:");
+        System.out.printf("Accuration = %.2f %%\n\n",(float) accurate / (float) datasetSize *100);
     }
 }

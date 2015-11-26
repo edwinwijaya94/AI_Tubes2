@@ -29,7 +29,7 @@ public class Algorithm {
         for(Iterator<String> it2 = dataSet.getClassValue().iterator(); it2.hasNext();){
             int countClass = 0;
             String nowClass = it2.next();
-//            System.out.println("nowClass " + nowClass);
+            
             for(int i=0;i<dataSet.getDataSet().size();i++){
                 if (dataSet.getDataSet().get(i)[dataSet.getDataSet().get(i).length-1].equals(nowClass)){
                     countClass++;
@@ -37,30 +37,38 @@ public class Algorithm {
             }
             sumClass.add(countClass);
         }
+        
+          
+//        Iterator<String> it4 = dataSet.getClassValue().iterator();
 //        for(int i=0;i<sumClass.size();i++){
+//            String nowClass = it4.next();
+//            System.out.print("nowClass " + nowClass+" ");
 //            System.out.println(sumClass.get(i));
 //        }
+//        
 //        System.out.println("dataSet size=" + dataSet.getDataSet().size());
 //        System.out.println("value size=" + value.size());
+        //iterate for every attribute
         for(int i=0; i<dataSet.getDataSet().get(0).length;i++){
             int temp = 0;
+            // iterate for every possible value in an attribute
             for(Iterator<String> it = value.get(i).iterator(); it.hasNext();){
                 String now = it.next();
-                int it3 = 0;
+                int it3 = 0; // index of possible class
                 temp++;
+                //iterate for every possible class
                 for(Iterator<String> it2 = value.get(dataSet.getDataSet().get(0).length-1).iterator(); it2.hasNext();){
                     String now2 = it2.next();
+                    
                     // iterate over all instances
                     int countFrequent=0;
-                    double countProbability=0;
+                    double countProbability=0.0;
                     for(int j=0;j<dataSet.getDataSet().size();j++){
-                        for(int k=0;k<dataSet.getDataSet().get(0).length;k++){
 //                            System.out.println(dataSet.getDataSet().get(j)[k]);
 //                            System.out.println("itnext " + now);
-                            if (dataSet.getDataSet().get(j)[k].equals(now) && dataSet.getDataSet().get(j)[dataSet.getDataSet().get(j).length-1].equals(now2)){
-                                countFrequent++;
-                                countProbability++;
-                            }
+                        if (dataSet.getDataSet().get(j)[i].equals(now) && dataSet.getDataSet().get(j)[dataSet.getDataSet().get(j).length-1].equals(now2)){
+                            countFrequent++;
+                            countProbability++;
                         }
                     }
                     //update freq table
@@ -69,7 +77,7 @@ public class Algorithm {
                     resFreq.add(now2);
                     resFreq.add(countFrequent+"");
                     frequentTable.add(resFreq);
-                    
+
                     // update prob table
                     countProbability = countProbability / sumClass.get(it3);
                     ArrayList<String> resProb = new ArrayList<>();
@@ -77,8 +85,10 @@ public class Algorithm {
                     resProb.add(now2);
                     resProb.add(countProbability+"");
                     probabilityTable.add(resProb);
+                        
                     it3++;
                 }
+                
             }
         }
         

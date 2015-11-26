@@ -15,22 +15,22 @@ import java.util.Set;
  *
  * @author user
  */
-public class NB {
+public class NBTester {
 
     private DataSet dataSet;         // the data set
     private DataTest dataTest;         // the data test
-    private static ArrayList<ArrayList<String>> frequentTable;
-    private static ArrayList<ArrayList<String>> probabilityTable;
-    private static ArrayList<ArrayList<String>> frequentTable2;
-    private static ArrayList<ArrayList<String>> probabilityTable2;
+    private ArrayList<ArrayList<String>> frequentTable;
+    private ArrayList<ArrayList<String>> probabilityTable;
+    private ArrayList<ArrayList<String>> frequentTable2;
+    private ArrayList<ArrayList<String>> probabilityTable2;
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
+    public NBTester(){
         
-        if (args.length!=2)
+    }
+    
+    public void Test(String[] args) throws IOException {
+        
+        if (args.length != 2)
         {
           System.out.println("Wrong usage. Type java KNN [data file] [data Set]");
         }
@@ -41,7 +41,7 @@ public class NB {
           DataTest dataTest = new DataTest(args[1]);
           
           ArrayList<Set<String>> value = new ArrayList<>();
-          for(int i=0; i<1000; i++){
+          for(int i=0; i<dataSet.getDataSet().get(0).length; i++){
               Set<String> temp = new HashSet<>();
               value.add(temp);
           }
@@ -54,14 +54,13 @@ public class NB {
 
           probabilityTable = new ArrayList<>();
           Algorithm algorithm = new Algorithm(dataSet, value, frequentTable, probabilityTable);
-          //algorithm.printProbability(probabilityTable);
+//          algorithm.printProbability(probabilityTable);
+//          algorithm.printFrequent(frequentTable);
           ArrayList<String> finalClass = new ArrayList<>();
           finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
           
           System.out.println("Full Training method");
-          System.out.printf("Accuration = %.2f" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
-          System.out.println("%");
-          System.out.println();
+          System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
           
           //10 fold cross validation
           ArrayList<Set<String>> value2 = new ArrayList<>();
@@ -74,22 +73,13 @@ public class NB {
           //dataSet.printDataSet();
           Algorithm algorithm2 = new Algorithm(dataSet, value2, frequentTable2, probabilityTable2);
           //algorithm2.printProbability(probabilityTable);
-//          for(int i=0; i<value2.size(); i++){
-//              for(Iterator<String> it = value.get(i).iterator(); it.hasNext();){
-//                  System.out.print("Attr " + it.next());
-//              }
-//              System.out.println();
-//          }
+
           ArrayList<String> crossFinalClass = new ArrayList<>();
           crossFinalClass=algorithm2.getCrossValidationResult(dataSet, 10);
-//          System.out.println("Cross final class");
-//          for(int i=0; i<crossFinalClass.size(); i++){
-//              System.out.println(crossFinalClass.get(i));
-//          }
-          //dataTest.printDataTest();
+
           System.out.println("10 Fold Cross Validation method:");
-          System.out.printf("Accuration = %.2f" ,algorithm.getFullTrainingAccuration(dataTest, crossFinalClass));
-          System.out.println("%");
+          System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, crossFinalClass));
+          
         }
     }
 }
