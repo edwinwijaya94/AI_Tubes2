@@ -214,10 +214,8 @@ public class Algorithm {
         double count = 0;
        
         for(int i=0;i<finalClass.size();i++){
-            
             if (finalClass.get(i).equals(dataTest.getDataTest().get(i)[dataTest.getDataTest().get(i).length-1])){
                 count++;
-                
             }
         }
         double incorrect = finalClass.size()-count;
@@ -229,7 +227,20 @@ public class Algorithm {
     }
     
     //
-    public double getCrossValidationAccuration(DataTest dataTest, ArrayList<String> finalClass){
-        return getFullTrainingAccuration(dataTest,finalClass);
+    public double getCrossValidationAccuration(DataSet dataSet, ArrayList<String> finalClass){
+        double accuration;
+        double count = 0;
+       
+        for(int i=0;i<finalClass.size();i++){
+            if (finalClass.get(i).equals(dataSet.getDataSet().get(i)[dataSet.getDataSet().get(i).length-1])){
+                count++;
+            }
+        }
+        double incorrect = finalClass.size()-count;
+        //System.out.println();
+        System.out.println("Correctly Classified Instances = " + count);
+        System.out.println("Incorrectly Classified Instances = " + incorrect);
+        accuration = count / finalClass.size() * 100;
+        return accuration;
     }
 }

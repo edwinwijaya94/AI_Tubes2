@@ -20,7 +20,7 @@ public class KNN {
     public KNN(String fileName, int kVar) {
         try {
             this.kVar = kVar;
-            fileName = "src/" + fileName;
+            //fileName = "src/" + fileName;
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
             data = new ArrayList<>();
 
@@ -77,9 +77,9 @@ public class KNN {
         System.out.printf("Accuration = %.2f %%\n\n",(float) accurate / (float) datasetSize *100);
     }
 
-    public void getCrossValidationAccuracy() {
+    public void getCrossValidationAccuracy( int segment) {
         int accurate = 0;
-        final int segment = 10;
+        //final int segment = 10;
 
         for (int i = 0; i < segment; i++) {
             int start = datasetSize * i / segment;

@@ -31,7 +31,7 @@ public class DataTest {
         String[] temp;
 
         try {
-            filename  = "src/" + filename;
+            //filename  = "src/" + filename;
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(filename);
 

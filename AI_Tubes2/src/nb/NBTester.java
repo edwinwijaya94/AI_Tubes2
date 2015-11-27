@@ -28,58 +28,83 @@ public class NBTester {
         
     }
     
+    public void NBFullTraining(String[] args, DataSet dataSet, DataTest dataTest){
+        //Full Training
+        ArrayList<Set<String>> value = new ArrayList<>();
+        for(int i=0; i<dataSet.getDataSet().get(0).length; i++){
+            Set<String> temp = new HashSet<>();
+            value.add(temp);
+        }
+        AttributeValue attributeValue = new AttributeValue(dataSet,value);
+        //attributeValue.print(value);
+        Set<String> classValue = new HashSet<>();
+        classValue = dataSet.getClassValue();
+
+        frequentTable = new ArrayList<>();
+
+        probabilityTable = new ArrayList<>();
+        Algorithm algorithm = new Algorithm(dataSet, value, frequentTable, probabilityTable);
+
+        ArrayList<String> finalClass = new ArrayList<>();
+        finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
+
+        System.out.println("Full Training method");
+        System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
+    }
+    
+    public void NBCrossValidation(String[] args, DataSet dataSet){
+        //Cross Validation
+        ArrayList<Set<String>> value2 = new ArrayList<>();
+        for(int i=0; i<100; i++){
+            Set<String> temp = new HashSet<>();
+            value2.add(temp);
+        }
+        frequentTable2 = new ArrayList<>();
+        probabilityTable2 = new ArrayList<>();
+        //dataSet.printDataSet();
+        Algorithm algorithm2 = new Algorithm(dataSet, value2, frequentTable2, probabilityTable2);
+        //algorithm2.printProbability(probabilityTable);
+
+        ArrayList<String> crossFinalClass = new ArrayList<>();
+        crossFinalClass=algorithm2.getCrossValidationResult(dataSet, Integer.parseInt(args[5]));
+
+        System.out.println("10 Fold Cross Validation method:");
+        System.out.printf("Accuration = %.2f %%\n\n" ,algorithm2.getCrossValidationAccuration(dataSet, crossFinalClass));
+    }
+    
     public void Test(String[] args) throws IOException {
         
-        if (args.length != 2)
+        if (args.length != 6)
         {
-          System.out.println("Wrong usage. Type java KNN [data file] [data Set]");
+          System.out.println("Missing args !");
         }
         else
         {
-          // Read in argument
-          DataSet dataSet = new DataSet(args[0]);
-          DataTest dataTest = new DataTest(args[1]);
-          
-          ArrayList<Set<String>> value = new ArrayList<>();
-          for(int i=0; i<dataSet.getDataSet().get(0).length; i++){
-              Set<String> temp = new HashSet<>();
-              value.add(temp);
-          }
-          AttributeValue attributeValue = new AttributeValue(dataSet,value);
-          //attributeValue.print(value);
-          Set<String> classValue = new HashSet<>();
-          classValue = dataSet.getClassValue();
-//          dataSet.printClass(classValue);
-          frequentTable = new ArrayList<>();
-
-          probabilityTable = new ArrayList<>();
-          Algorithm algorithm = new Algorithm(dataSet, value, frequentTable, probabilityTable);
-//          algorithm.printProbability(probabilityTable);
-//          algorithm.printFrequent(frequentTable);
-          ArrayList<String> finalClass = new ArrayList<>();
-          finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
-          
-          System.out.println("Full Training method");
-          System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
-          
-          //10 fold cross validation
-          ArrayList<Set<String>> value2 = new ArrayList<>();
-          for(int i=0; i<100; i++){
-              Set<String> temp = new HashSet<>();
-              value2.add(temp);
-          }
-          frequentTable2 = new ArrayList<>();
-          probabilityTable2 = new ArrayList<>();
-          //dataSet.printDataSet();
-          Algorithm algorithm2 = new Algorithm(dataSet, value2, frequentTable2, probabilityTable2);
-          //algorithm2.printProbability(probabilityTable);
-
-          ArrayList<String> crossFinalClass = new ArrayList<>();
-          crossFinalClass=algorithm2.getCrossValidationResult(dataSet, 10);
-
-          System.out.println("10 Fold Cross Validation method:");
-          System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, crossFinalClass));
-          
+            
+            if(args[3].equals("Full Training")){ // full training method
+                // Read in argument
+                DataSet dataSet = new DataSet(args[0]);
+                DataTest dataTest = new DataTest(args[1]); 
+                
+                this.NBFullTraining(args, dataSet, dataTest);
+            }
+            else if(args[3].equals("Cross Validation")){
+                // Read in argument
+                DataSet dataSet = new DataSet(args[0]);
+            
+                this.NBCrossValidation(args, dataSet);
+            }
+            else if(args[3].equals("Use all available methods")){
+                // Read in argument
+                DataSet dataSet = new DataSet(args[0]);
+                DataTest dataTest = new DataTest(args[1]); 
+                
+                this.NBFullTraining(args, dataSet, dataTest);
+                this.NBCrossValidation(args, dataSet);
+            }
+            else{
+                System.out.println("Naive Bayes : Unrecognized method option !");
+            }
         }
     }
 }

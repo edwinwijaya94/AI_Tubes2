@@ -34,10 +34,9 @@ public class DataSet {
         String[] temp;
 
         try {
-            filename  = "src/" + filename;
             // FileReader reads text files in the default encoding.
+            
             FileReader fileReader = new FileReader(filename);
-
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             
