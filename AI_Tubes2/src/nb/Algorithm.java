@@ -6,8 +6,10 @@
 package nb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,14 +18,18 @@ import java.util.Set;
  */
 public class Algorithm {
     
+    private ArrayList<Integer> sumClass;
+    private HashMap<String, Double> probabilityClassValue;
     public Algorithm(DataSet dataSet, ArrayList<Set<String>> value, ArrayList<ArrayList<String>> frequentTable, ArrayList<ArrayList<String>> probabilityTable){
+        probabilityClassValue = new HashMap<>();
         Table(dataSet, value, frequentTable, probabilityTable);
         //printProbability(probabilityTable);
+        
     }
     
     //membuat tabel frequent dan probability
     public void Table(DataSet dataSet, ArrayList<Set<String>> value, ArrayList<ArrayList<String>> frequentTable, ArrayList<ArrayList<String>> probabilityTable){
-        ArrayList<Integer> sumClass = new ArrayList<>();
+        sumClass = new ArrayList<>();
        
         //menghitung jumlah tiap value pada class
         for(Iterator<String> it2 = dataSet.getClassValue().iterator(); it2.hasNext();){
@@ -36,6 +42,7 @@ public class Algorithm {
                 }
             }
             sumClass.add(countClass);
+            probabilityClassValue.put(nowClass,(double)countClass/ (double)dataSet.getDataSet().size());
         }
         
           
@@ -133,6 +140,7 @@ public class Algorithm {
                     else // probability value not found
                         result *=0;
                 }
+                result *= probabilityClassValue.get(now);
                 ArrayList<String> hasil = new ArrayList<>();
                 hasil.add(now);
                 hasil.add(result.toString());
@@ -253,6 +261,13 @@ public class Algorithm {
         System.out.println();
     }
     
+    public void printProbabilityClassValue(){
+        System.out.println("Probability Class Value");
+        for(Iterator it2= probabilityClassValue.entrySet().iterator(); it2.hasNext();){
+            Map.Entry pair = (Map.Entry)it2.next();
+            System.out.println("class: "+ pair.getKey() + "prob= "+ pair.getValue());
+        }
+    }
     // print confusion matrix
     public void printConfusionMatrix(ArrayList<String> finalClass){
         

@@ -48,6 +48,8 @@ public class NBTester {
         ArrayList<String> finalClass = new ArrayList<>();
         finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
         
+        algorithm.printProbabilityClassValue();
+        algorithm.printProbability(probabilityTable);
         System.out.println("Method : Full Training");
         algorithm.printFinalClass(finalClass);
         System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
