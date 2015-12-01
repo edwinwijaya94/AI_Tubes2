@@ -243,4 +243,18 @@ public class Algorithm {
         accuration = count / finalClass.size() * 100;
         return accuration;
     }
+    
+    // print all predicted class (finalClass) for dataset
+    public void printFinalClass(ArrayList<String> finalClass){
+        System.out.println("Predicted Class:");
+        for(int i=0; i<finalClass.size(); i++){
+            System.out.println("data-" + (i+1) + " " + finalClass.get(i)); //1-based index
+        }
+        System.out.println();
+    }
+    
+    // print confusion matrix
+    public void printConfusionMatrix(ArrayList<String> finalClass){
+        
+    }
 }

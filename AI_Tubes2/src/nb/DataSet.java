@@ -41,10 +41,17 @@ public class DataSet {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             
             dataSet = new ArrayList<String[]>();
-            while((line = bufferedReader.readLine()) != null) {
+            line = bufferedReader.readLine();
+            while(!line.equals("@data")){
+                line = bufferedReader.readLine();
+            }
+            line = bufferedReader.readLine();
+            while(line != null && !line.equals("%")) {
                 temp = line.split(",");
                 dataSet.add(temp);
+                line = bufferedReader.readLine();
             }
+            
             
 //            for(int i=0;i<dataSet.size();i++){
 //                for(int j=0;j<dataSet.get(i).length;j++){
@@ -74,6 +81,7 @@ public class DataSet {
         return dataSet;
     }
     
+    // get all possible class value
     public Set<String> getClassValue(){
         classValue = new HashSet<>();
         for(int i=0;i<dataSet.size();i++){

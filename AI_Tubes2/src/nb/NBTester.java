@@ -47,8 +47,9 @@ public class NBTester {
 
         ArrayList<String> finalClass = new ArrayList<>();
         finalClass = algorithm.getFullTrainingResult(dataSet, dataTest, probabilityTable);
-
-        System.out.println("Full Training method");
+        
+        System.out.println("Method : Full Training");
+        algorithm.printFinalClass(finalClass);
         System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
     }
     
@@ -67,8 +68,9 @@ public class NBTester {
 
         ArrayList<String> crossFinalClass = new ArrayList<>();
         crossFinalClass=algorithm2.getCrossValidationResult(dataSet, Integer.parseInt(args[5]));
-
-        System.out.println("10 Fold Cross Validation method:");
+        
+        System.out.println("Method : " + args[5] + "-" + "Fold Cross Validation");
+        algorithm2.printFinalClass(crossFinalClass);
         System.out.printf("Accuration = %.2f %%\n\n" ,algorithm2.getCrossValidationAccuration(dataSet, crossFinalClass));
     }
     
