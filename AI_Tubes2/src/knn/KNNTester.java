@@ -7,7 +7,7 @@ public class KNNTester {
     }
     
     public void Test(String[] argv) {
-        KNN knn = new KNN(argv[0], Integer.parseInt(argv[4]));
+        KNN knn = new KNN(argv, Integer.parseInt(argv[4]));
         
         if(argv[3].equals("Full Training")){
             knn.getFullTrainingAccuracy();
