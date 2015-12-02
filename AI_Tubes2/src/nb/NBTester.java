@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public class NBTester {
 
-    private DataSet dataSet;         // the data set
+    private DataSet dataSet;           // the data set
     private DataTest dataTest;         // the data test
     private ArrayList<ArrayList<String>> frequentTable;
     private ArrayList<ArrayList<String>> probabilityTable;
@@ -50,9 +50,16 @@ public class NBTester {
         
         algorithm.printProbabilityClassValue();
         algorithm.printProbability(probabilityTable);
+        System.out.println();
         System.out.println("Method : Full Training");
         algorithm.printFinalClass(finalClass);
+        System.out.println();
         System.out.printf("Accuration = %.2f %%\n\n" ,algorithm.getFullTrainingAccuration(dataTest, finalClass));
+        
+        System.out.println();
+//        Print Confusion Matrix
+        System.out.println("Confusion Matrix:");
+        algorithm.printConfusionMatrixFullTraining(dataSet, dataTest, finalClass);
     }
     
     public void NBCrossValidation(String[] args, DataSet dataSet){
@@ -71,9 +78,16 @@ public class NBTester {
         ArrayList<String> crossFinalClass = new ArrayList<>();
         crossFinalClass=algorithm2.getCrossValidationResult(dataSet, Integer.parseInt(args[5]));
         
+        System.out.println();
         System.out.println("Method : " + args[5] + "-" + "Fold Cross Validation");
         algorithm2.printFinalClass(crossFinalClass);
+        System.out.println();
         System.out.printf("Accuration = %.2f %%\n\n" ,algorithm2.getCrossValidationAccuration(dataSet, crossFinalClass));
+    
+        //        Print Confusion Matrix
+        System.out.println();
+        System.out.println("Confusion Matrix:");
+        algorithm2.printConfusionMatrixCrossValidation(dataSet, crossFinalClass);
     }
     
     public void Test(String[] args) throws IOException {

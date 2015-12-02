@@ -212,6 +212,7 @@ public class Algorithm {
             //printProbability(probabilityTable);
             
             finalClass.addAll(getFullTrainingResult(modelSet,testSet, probabilityTable));
+            
         }
         return finalClass;
     }
@@ -268,8 +269,105 @@ public class Algorithm {
             System.out.println("class: "+ pair.getKey() + "prob= "+ pair.getValue());
         }
     }
-    // print confusion matrix
-    public void printConfusionMatrix(ArrayList<String> finalClass){
+    
+    // print confusion matrix full training
+    public void printConfusionMatrixFullTraining(DataSet dataSet, DataTest dataTest, ArrayList<String> finalClass){
+        HashMap<String, HashMap<String, Integer>> matriks = new HashMap<>();
         
+        String[] Class = dataSet.getClassValue().toArray(new String[dataSet.getClassValue().size()]);
+        for (int i = 0; i < dataSet.getClassValue().size(); i++) {
+            HashMap<String, Integer> prediksi = new HashMap<String, Integer>();
+            for(int j = 0; j < dataSet.getClassValue().size(); j++) {
+                prediksi.put(Class[j], 0);
+            }
+            matriks.put(Class[i], prediksi);
+        }
+        for (int k=0;k<dataTest.getDataTest().size();k++){
+            String actual = dataTest.getDataTest().get(k)[dataTest.getDataTest().get(k).length-1];
+            finalClass.add(finalClass.get(k));
+            Integer value = matriks.get(actual).get(finalClass.get(k));
+            matriks.get(actual).put(finalClass.get(k), value + 1);
+        }
+        
+        //print attribute directory
+        Iterator it = dataSet.getClassValue().iterator();
+        for(int i = 97; i < dataSet.getClassValue().size() + 97; i++) {
+            System.out.printf("%c : %s\n",(char)i,it.next());
+        }
+        System.out.println();
+        System.out.println("* = Correct Instance");
+        System.out.println();
+        
+        System.out.print("      \t");
+        //print isi matriks
+        for(int i = 97; i < dataSet.getClassValue().size() + 97; i++) {
+            System.out.printf("%c\t",(char)i);
+        }
+        
+        System.out.println();
+        
+        //print kebawah
+        int l = 97;
+        for(String actual : matriks.keySet()) {
+            System.out.print((char)l + "\t");
+            l++;
+            for(String predicted : matriks.get(actual).keySet()) {
+                if (actual == predicted){
+                    System.out.printf("*( %s )\t",matriks.get(actual).get(predicted));
+                } else
+                    System.out.printf("%s\t",matriks.get(actual).get(predicted));
+            }
+            System.out.println();
+        }
+    }
+    
+    // print confusion matrix cross validation
+    public void printConfusionMatrixCrossValidation(DataSet dataSet, ArrayList<String> finalClass){
+        HashMap<String, HashMap<String, Integer>> matriks = new HashMap<>();
+        
+        String[] Class = dataSet.getClassValue().toArray(new String[dataSet.getClassValue().size()]);
+        for (int i = 0; i < dataSet.getClassValue().size(); i++) {
+            HashMap<String, Integer> prediksi = new HashMap<String, Integer>();
+            for(int j = 0; j < dataSet.getClassValue().size(); j++) {
+                prediksi.put(Class[j], 0);
+            }
+            matriks.put(Class[i], prediksi);
+        }
+        for (int k=0;k<dataSet.getDataSet().size();k++){
+            String actual = dataSet.getDataSet().get(k)[dataSet.getDataSet().get(k).length-1];
+            finalClass.add(finalClass.get(k));
+            Integer value = matriks.get(actual).get(finalClass.get(k));
+            matriks.get(actual).put(finalClass.get(k), value + 1);
+        }
+        
+        //print attribute directory
+        Iterator it = dataSet.getClassValue().iterator();
+        for(int i = 97; i < dataSet.getClassValue().size() + 97; i++) {
+            System.out.printf("%c : %s\n",(char)i,it.next());
+        }
+        System.out.println();
+        System.out.println("* = Correct Instance");
+        System.out.println();
+        
+        System.out.print("      \t");
+        //print isi matriks
+        for(int i = 97; i < dataSet.getClassValue().size() + 97; i++) {
+            System.out.printf("%c\t",(char)i);
+        }
+        System.out.println();
+        
+        //print kebawah
+        int l = 97;
+        for(String actual : matriks.keySet()) {
+            System.out.print((char)l + "\t");
+            l++;
+            for(String predicted : matriks.get(actual).keySet()) {
+                if (actual == predicted){
+                    System.out.printf("*( %s )\t",matriks.get(actual).get(predicted));
+                } else
+                    System.out.printf("%s\t",matriks.get(actual).get(predicted));
+            }
+            System.out.println();
+        }
     }
 }
