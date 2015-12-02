@@ -1,6 +1,8 @@
 package knn;
 
 import com.opencsv.CSVReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import javafx.util.Pair;
 
 import java.io.FileReader;
@@ -34,8 +36,94 @@ public class KNN {
     private ArrayList<String> actual  = new ArrayList<>();
 
     public KNN(String[] args, int kVar) {
+        String line = null;
+        String tempStr[];
         
         try {
+            this.kVar = kVar;
+            FileReader fileReader = new FileReader(args[0]);
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            
+            dataSet = new ArrayList<>();
+            line = bufferedReader.readLine();
+            while(!line.equals("@data")){
+                line = bufferedReader.readLine();
+            }
+            line = bufferedReader.readLine();
+            while(line != null && !line.equals("%")) {
+                tempStr = line.split(",");
+                ArrayList<String> tempRes = new ArrayList<>();
+                for(int i =0; i<tempStr.length;i++){
+                    tempRes.add(tempStr[i]);
+                }
+                attributeCount = tempRes.size() - 1;
+                dataSet.add(tempRes);
+                line = bufferedReader.readLine();
+            }
+            
+            
+            if (bufferedReader != null) {
+                try {
+                    // Always close files.
+                    bufferedReader.close();
+                } catch(IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            datasetSize = dataSet.size();
+            this.getTypeClass();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + args[0] + "'");                
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        if(args[3].equals("Full Training") || args[3].equals("Use all available methods")){
+            try {
+                this.kVar = kVar;
+                FileReader fileReader = new FileReader(args[1]);
+                // Always wrap FileReader in BufferedReader.
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                dataTest = new ArrayList<>();
+                line = bufferedReader.readLine();
+                while(!line.equals("@data")){
+                    line = bufferedReader.readLine();
+                }
+                line = bufferedReader.readLine();
+                while(line != null && !line.equals("%")) {
+                    tempStr = line.split(",");
+                    ArrayList<String> tempRes = new ArrayList<>();
+                    for(int i =0; i<tempStr.length;i++){
+                        tempRes.add(tempStr[i]);
+                    }
+                    attributeCount = tempRes.size() - 1;
+                    dataTest.add(tempRes);
+                    line = bufferedReader.readLine();
+                }
+
+                if (bufferedReader != null) {
+                    try {
+                        // Always close files.
+                        bufferedReader.close();
+                    } catch(IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                datatestSize = dataTest.size();
+                this.getTypeClass();
+            }catch(FileNotFoundException ex) {
+                System.out.println("Unable to open file '" + args[1] + "'");                
+            }
+            catch(IOException ex) {
+                ex.printStackTrace();
+            }    
+        }
+    }
+        /*try {
             this.kVar = kVar;
             // baca dataset
             CSVReader csvReader = new CSVReader(new FileReader(args[0]));
@@ -78,7 +166,7 @@ public class KNN {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     // mengisi set dengan atribut class
     public void getTypeClass() {
