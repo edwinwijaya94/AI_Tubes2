@@ -1,0 +1,9 @@
+/*for(Iterator it1 = matriks.entrySet().iterator(); it1.hasNext();) {
+            Map.Entry pair = (Map.Entry) it1.next();
+            System.out.print((char)l + " ");
+            l++;
+            matriks.get(actual.get(i)).put(predicted.get(i), matriks.get(actual.get(i)).get(predicted.get(i)) + 1);
+            for(Iterator it2 = pair.getKey() ; it2.hasNext();) {
+                
+            }
+        }*/
