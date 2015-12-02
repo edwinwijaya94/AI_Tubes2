@@ -73,7 +73,7 @@ public class Main extends javax.swing.JFrame {
         AllMethodOption = new javax.swing.JRadioButton();
         FoldsValue = new javax.swing.JTextField();
         FoldsLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        SaveButton = new javax.swing.JButton();
 
         DataSetChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,11 +289,11 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(AllMethodOption))
         );
 
-        jButton1.setText("Save Result");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        SaveButton.setText("Save Result");
+        SaveButton.setToolTipText("");
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SaveButtonActionPerformed(evt);
             }
         });
 
@@ -318,7 +318,7 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(StartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -337,7 +337,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(ResultLabel))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(SaveButton)))
                 .addGap(18, 18, 18)
                 .addComponent(ResultPane, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -480,18 +480,34 @@ public class Main extends javax.swing.JFrame {
         DataTestPath.setText("");
     }//GEN-LAST:event_CrossValidationOptionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         // TODO add your handling code here:
-        FileDialog fDialog = new FileDialog(this, "Save", FileDialog.SAVE);
-        fDialog.setVisible(true);
-        String path = fDialog.getDirectory() + fDialog.getFile();
-        File f = new File(path);
-        try (BufferedWriter fileOut = new BufferedWriter(new FileWriter(f))) {
-            ResultArea.write(fileOut);
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        
+        int returnVal = SaveFileChooser.showSaveDialog(this);
+       
+        // process selected file
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = SaveFileChooser.getSelectedFile();
+            try (BufferedWriter fileOut = new BufferedWriter(new FileWriter(file))) {
+                ResultArea.write(fileOut);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            //System.out.println("File access cancelled by user.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        
+//        FileDialog fDialog = new FileDialog(this, "Save", FileDialog.SAVE);
+//        fDialog.setVisible(true);
+//        String path = fDialog.getDirectory() + fDialog.getFile();
+//        File f = new File(path);
+//        try (BufferedWriter fileOut = new BufferedWriter(new FileWriter(f))) {
+//            ResultArea.write(fileOut);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }//GEN-LAST:event_SaveButtonActionPerformed
 
     /*Additional method*/
     //get selected radio button
@@ -597,8 +613,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextArea ResultArea;
     private javax.swing.JLabel ResultLabel;
     private javax.swing.JScrollPane ResultPane;
+    private javax.swing.JButton SaveButton;
     private javax.swing.JFileChooser SaveFileChooser;
     private javax.swing.JButton StartButton;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
