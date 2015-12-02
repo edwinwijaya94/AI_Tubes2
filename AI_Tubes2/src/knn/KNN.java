@@ -266,18 +266,32 @@ public class KNN {
             matriks.get(actual.get(i)).put(predicted.get(i), value + 1);
         }
         
+        Iterator it = setClass.iterator();
         for(int i = 97; i < setClass.size() + 97; i++) {
-            System.out.print("   " + (char)i + "  ");
+            System.out.printf("%c : %s\n",(char)i,it.next());
+        }
+        
+        System.out.println();
+        System.out.println("* = Correct Instance");
+        System.out.println();
+        
+        System.out.print("      \t");
+        
+        for(int i = 97; i < setClass.size() + 97; i++) {
+            System.out.printf("%c\t",(char)i);
         }
         System.out.println();
         
         //print kebawah
         int l = 97;
         for(String actual : matriks.keySet()) {
-            System.out.print((char)l + "  ");
+            System.out.print((char)l + "\t");
             l++;
             for(String predicted : matriks.get(actual).keySet()) {
-                System.out.print(matriks.get(actual).get(predicted) + "   ");
+                if (actual == predicted){
+                    System.out.printf("*( %s )\t",matriks.get(actual).get(predicted));
+                } else
+                    System.out.printf("%s\t",matriks.get(actual).get(predicted));
             }
             System.out.println();
         }
@@ -291,6 +305,8 @@ public class KNN {
     public void getCrossValidationAccuracy( int segment) {
         int accurate = 0;
         this.matriks();
+        predicted = new ArrayList<>();
+        actual = new ArrayList<>();
         //final int segment = 10;
         int mod = datasetSize % segment;
         int start = 0;
@@ -362,18 +378,33 @@ public class KNN {
                 matriks.get(actual.get(j)).put(predicted.get(j), value + 1);
             }
         }
+        
+        Iterator it = setClass.iterator();
         for(int i = 97; i < setClass.size() + 97; i++) {
-            System.out.print("   " + (char)i + "  ");
+            System.out.printf("%c : %s\n",(char)i,it.next());
+        }
+        
+        System.out.println();
+        System.out.println("* = Correct Instance");
+        System.out.println();
+        
+        System.out.print("      \t");
+        
+        for(int i = 97; i < setClass.size() + 97; i++) {
+            System.out.printf("%c\t",(char)i);
         }
         System.out.println();
         
         //print kebawah
         int l = 97;
         for(String actual : matriks.keySet()) {
-            System.out.print((char)l + "  ");
+            System.out.print((char)l + "\t");
             l++;
             for(String predicted : matriks.get(actual).keySet()) {
-                System.out.print(matriks.get(actual).get(predicted) + "   ");
+                if (actual == predicted){
+                    System.out.printf("*( %s )\t",matriks.get(actual).get(predicted));
+                } else
+                    System.out.printf("%s\t",matriks.get(actual).get(predicted));
             }
             System.out.println();
         }

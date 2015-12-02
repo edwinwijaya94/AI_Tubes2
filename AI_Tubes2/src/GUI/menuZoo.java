@@ -45,7 +45,7 @@ public class menuZoo extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Welcome To The Jungle");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(220, 170, 400, 60);
+        jLabel2.setBounds(190, 170, 440, 60);
 
         jButton2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 102, 102));
@@ -56,7 +56,7 @@ public class menuZoo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(350, 290, 120, 30);
+        jButton2.setBounds(350, 290, 140, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/menu2.png"))); // NOI18N
         jLabel1.setText("Explore");
