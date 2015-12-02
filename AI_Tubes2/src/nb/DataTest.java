@@ -39,9 +39,15 @@ public class DataTest {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             
             dataTest = new ArrayList<String[]>();
-            while((line = bufferedReader.readLine()) != null) {
+            line = bufferedReader.readLine();
+            while(!line.equals("@data")){
+                line = bufferedReader.readLine();
+            }
+            line = bufferedReader.readLine();
+            while(line != null && !line.equals("%")) {
                 temp = line.split(",");
                 dataTest.add(temp);
+                line = bufferedReader.readLine();
             }
             
 //            for(int i=0;i<dataTest.size();i++){
