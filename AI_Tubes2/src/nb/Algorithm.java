@@ -111,12 +111,13 @@ public class Algorithm {
     }
     
     public void printProbability(ArrayList<ArrayList<String>> probabilityTable){
-        System.out.println("prob table=");
+        System.out.println("Probability Table:");
+        System.out.printf("%s\t|\t%s\t|\t%s\n","Attribute","Class","Probability");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------");
         for(int k=0; k<probabilityTable.size(); k++){
-                for(int j=0; j<probabilityTable.get(k).size(); j++)
-                    System.out.print(probabilityTable.get(k).get(j)+ " ");
-                System.out.println();
-            }
+            System.out.printf("%s\t|\t%s\t|\t%s\n",probabilityTable.get(k).get(0),probabilityTable.get(k).get(1),probabilityTable.get(k).get(2));
+
+        }
     }
     
     public ArrayList<String> getFullTrainingResult(DataSet dataSet, DataTest dataTest, ArrayList<ArrayList<String>> probabilityTable){
@@ -263,11 +264,14 @@ public class Algorithm {
     }
     
     public void printProbabilityClassValue(){
-        System.out.println("Probability Class Value");
+        System.out.println("Probability Class Value:");
+        System.out.printf("%s\t|\t%s\n","Class","Probability");
+        System.out.println("------------------------------------------------------------");
         for(Iterator it2= probabilityClassValue.entrySet().iterator(); it2.hasNext();){
             Map.Entry pair = (Map.Entry)it2.next();
-            System.out.println("class: "+ pair.getKey() + "prob= "+ pair.getValue());
+            System.out.printf("%s\t|\t%f\n", pair.getKey(),pair.getValue());
         }
+        System.out.println();
     }
     
     // print confusion matrix full training
@@ -319,6 +323,7 @@ public class Algorithm {
             }
             System.out.println();
         }
+        System.out.println();
     }
     
     // print confusion matrix cross validation
@@ -369,5 +374,6 @@ public class Algorithm {
             }
             System.out.println();
         }
+        System.out.println();
     }
 }

@@ -56,7 +56,7 @@ public class menuZoo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(350, 290, 140, 30);
+        jButton2.setBounds(350, 290, 140, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/menu2.png"))); // NOI18N
         jLabel1.setText("Explore");

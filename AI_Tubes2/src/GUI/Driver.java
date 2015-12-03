@@ -20,24 +20,31 @@ public class Driver {
         
         if(argv[2].equals("Naive Bayes")){
             //NB Algo
+            System.out.println("-----------------------------------------");
             System.out.println("Naive Bayes Algorithm");
             NBTester NB = new NBTester();
             NB.Test(argv);
         }
         else if(argv[2].equals("KNN")){
             //KNN Algo
+            System.out.println("-----------------------------------------");
             System.out.println("KNN Algorithm:");
+            System.out.println("-----------------------------------------");
             KNNTester KNN = new KNNTester();
             KNN.Test(argv);
         }
         else if(argv[2].equals("Use all available algorithms")){ // use all algo
             //NB Algo
+            System.out.println("-----------------------------------------");
             System.out.println("Naive Bayes Algorithm");
+            System.out.println("-----------------------------------------");
             NBTester NB = new NBTester();
             NB.Test(argv);
 
             //KNN Algo
+            System.out.println("-----------------------------------------");
             System.out.println("KNN Algorithm:");
+            System.out.println("-----------------------------------------");
             KNNTester KNN = new KNNTester();
             KNN.Test(argv);
         }

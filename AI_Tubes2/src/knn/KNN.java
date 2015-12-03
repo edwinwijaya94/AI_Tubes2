@@ -266,6 +266,7 @@ public class KNN {
             matriks.get(actual.get(i)).put(predicted.get(i), value + 1);
         }
         
+        System.out.println("Confusion Matrix:");
         Iterator it = setClass.iterator();
         for(int i = 97; i < setClass.size() + 97; i++) {
             System.out.printf("%c : %s\n",(char)i,it.next());
@@ -295,9 +296,9 @@ public class KNN {
             }
             System.out.println();
         }
-        System.out.println("Corretly Classified Instances : " + getCorrectInstance(actual, predicted) );
-        System.out.println("Incorretly Classified Instances : " + (datatestSize - getCorrectInstance(actual, predicted)));
-        System.out.println("Full Training Method:");
+        System.out.println();
+        System.out.println("Correctly Classified Instances : " + getCorrectInstance(actual, predicted) );
+        System.out.println("Incorrectly Classified Instances : " + (datatestSize - getCorrectInstance(actual, predicted)));
         System.out.printf("Accuration = %.2f %%\n\n",(float) accurate / (float) datasetSize *100);
     }
     
@@ -379,6 +380,7 @@ public class KNN {
             }
         }
         
+        System.out.println("Confusion Matrix:");
         Iterator it = setClass.iterator();
         for(int i = 97; i < setClass.size() + 97; i++) {
             System.out.printf("%c : %s\n",(char)i,it.next());
@@ -408,9 +410,9 @@ public class KNN {
             }
             System.out.println();
         }
-        System.out.println("Corretly Classified Instances : " + getCorrectInstance(actual, predicted) );
-        System.out.println("Incorretly Classified Instances : " + (datasetSize - getCorrectInstance(actual, predicted)));
-        System.out.println("10-Cross Validation Method:");
+        System.out.println();
+        System.out.println("Correctly Classified Instances : " + getCorrectInstance(actual, predicted) );
+        System.out.println("Incorrectly Classified Instances : " + (datasetSize - getCorrectInstance(actual, predicted)));
         System.out.printf("Accuration = %.2f %%\n\n",(float) accurate / (float) datasetSize *100);
     }
 }
